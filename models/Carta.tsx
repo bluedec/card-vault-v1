@@ -8,7 +8,7 @@ export interface Carta {
     | "YUGIOH"
     | "MAGIC";
 
-  expansion: string;
+  expansion: string; // En el futuro debera ser un enum
 
   numeroColeccion: string;
 

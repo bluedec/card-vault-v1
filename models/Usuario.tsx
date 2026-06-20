@@ -1,9 +1,11 @@
+import { Reputacion } from "~/enums";
+
 export interface Usuario {
   id: string;
   nombre: string;
   email: string;
 
-  reputacion: number;
+  reputacion: Reputacion;
 
   fechaRegistro: Date;
 }
