@@ -1,4 +1,5 @@
 import { For } from "solid-js";
+import CreateCardForm from "~/components/CreateCardForm";
 
 const listings = [
   {
@@ -7,7 +8,7 @@ const listings = [
     juego: "Pokémon",
     precio: 250000,
     imagen:
-      "https://images.pokemontcg.io/base1/4_hires.png",
+    "https://images.pokemontcg.io/base1/4_hires.png",
   },
   {
     id: 2,
@@ -15,7 +16,7 @@ const listings = [
     juego: "Pokémon",
     precio: 180000,
     imagen:
-      "https://images.pokemontcg.io/base1/2_hires.png",
+    "https://images.pokemontcg.io/base1/2_hires.png",
   },
   {
     id: 3,
@@ -23,7 +24,7 @@ const listings = [
     juego: "Pokémon",
     precio: 150000,
     imagen:
-      "https://images.pokemontcg.io/base1/15_hires.png",
+    "https://images.pokemontcg.io/base1/15_hires.png",
   },
 ];
 
@@ -35,12 +36,12 @@ export default function Perfil() {
         {/* Banner */}
         <div
           class="
-            h-48
-            rounded-2xl
-            bg-gradient-to-r
-            from-[#6d5845]
-            via-[#8a6f4d]
-            to-[#b89a74]
+          h-48
+          rounded-2xl
+          bg-gradient-to-r
+          from-[#6d5845]
+          via-[#8a6f4d]
+          to-[#b89a74]
           "
         />
 
@@ -50,16 +51,16 @@ export default function Perfil() {
             <div class="flex gap-6">
               <div
                 class="
-                  h-28
-                  w-28
-                  rounded-full
-                  bg-[#d9d2c7]
-                  flex
-                  items-center
-                  justify-center
-                  text-5xl
-                  border-4
-                  border-white
+                h-28
+                w-28
+                rounded-full
+                bg-[#d9d2c7]
+                flex
+                items-center
+                justify-center
+                text-5xl
+                border-4
+                border-white
                 "
               >
                 👤
@@ -82,11 +83,11 @@ export default function Perfil() {
 
             <button
               class="
-                px-4
-                py-2
-                rounded-lg
-                bg-[#5f7866]
-                text-white
+              px-4
+              py-2
+              rounded-lg
+              bg-[#5f7866]
+              text-white
               "
             >
               Editar Perfil
@@ -133,10 +134,10 @@ export default function Perfil() {
 
           <div
             class="
-              bg-white
-              rounded-2xl
-              p-6
-              shadow-sm
+            bg-white
+            rounded-2xl
+            p-6
+            shadow-sm
             "
           >
             <div class="flex gap-4 text-5xl">
@@ -145,37 +146,244 @@ export default function Perfil() {
 
               <div
                 class="
-                  h-14
-                  w-14
-                  rounded-full
-                  border-2
-                  border-dashed
-                  border-[#d9d2c7]
+                h-14
+                w-14
+                rounded-full
+                border-2
+                border-dashed
+                border-[#d9d2c7]
                 "
               />
 
               <div
                 class="
-                  h-14
-                  w-14
-                  rounded-full
-                  border-2
-                  border-dashed
-                  border-[#d9d2c7]
+                h-14
+                w-14
+                rounded-full
+                border-2
+                border-dashed
+                border-[#d9d2c7]
                 "
               />
 
               <div
                 class="
-                  h-14
-                  w-14
-                  rounded-full
-                  border-2
-                  border-dashed
-                  border-[#d9d2c7]
+                h-14
+                w-14
+                rounded-full
+                border-2
+                border-dashed
+                border-[#d9d2c7]
                 "
-                />
+              />
             </div>
+          </div>
+        </section>
+
+        <CreateCardForm />
+        {/* Crear Carta */}
+        <section class="mt-8">
+          <h2 class="text-2xl font-bold mb-4">
+            Publicar Nueva Carta
+          </h2>
+
+          <div
+            class="
+            bg-white
+            rounded-2xl
+            p-6
+            shadow-sm
+            "
+          >
+            <form
+              class="
+              grid
+              grid-cols-1
+              md:grid-cols-2
+              gap-4
+              "
+            >
+              <div>
+                <label class="block mb-2 font-medium">
+                  Nombre de la Carta
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="Charizard"
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  focus:outline-none
+                  "
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium">
+                  Juego
+                </label>
+
+                <select
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                >
+                  <option>Pokémon</option>
+                  <option>Magic: The Gathering</option>
+                  <option>Yu-Gi-Oh!</option>
+                  <option>One Piece</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium">
+                  Rareza
+                </label>
+
+                <select
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                >
+                  <option>Común</option>
+                  <option>Poco Común</option>
+                  <option>Rara</option>
+                  <option>Ultra Rara</option>
+                  <option>Legendaria</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium">
+                  Precio
+                </label>
+
+                <input
+                  type="number"
+                  placeholder="250000"
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                />
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium">
+                  Estado
+                </label>
+
+                <select
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                >
+                  <option>Mint</option>
+                  <option>Near Mint</option>
+                  <option>Excellent</option>
+                  <option>Good</option>
+                  <option>Poor</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block mb-2 font-medium">
+                  Número de Carta
+                </label>
+
+                <input
+                  type="text"
+                  placeholder="4/102"
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block mb-2 font-medium">
+                  Imagen de la Carta
+                </label>
+
+                <input
+                  type="url"
+                  placeholder="https://..."
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block mb-2 font-medium">
+                  Descripción
+                </label>
+
+                <textarea
+                  rows="4"
+                  placeholder="Información adicional sobre la carta..."
+                  class="
+                  w-full
+                  border
+                  border-[#d9d2c7]
+                  rounded-lg
+                  px-4
+                  py-2
+                  "
+                />
+              </div>
+
+              <div class="md:col-span-2 flex justify-end">
+                <button
+                  type="submit"
+                  class="
+                  px-6
+                  py-3
+                  rounded-lg
+                  bg-[#5f7866]
+                  text-white
+                  hover:opacity-90
+                  transition
+                  "
+                >
+                  Publicar Carta
+                </button>
+              </div>
+            </form>
           </div>
         </section>
 
@@ -188,11 +396,11 @@ export default function Perfil() {
 
             <button
               class="
-                px-4
-                py-2
-                rounded-lg
-                bg-[#5f7866]
-                text-white
+              px-4
+              py-2
+              rounded-lg
+              bg-[#5f7866]
+              text-white
               "
             >
               Publicar Carta
@@ -201,32 +409,32 @@ export default function Perfil() {
 
           <div
             class="
-              grid
-              grid-cols-1
-              sm:grid-cols-2
-              lg:grid-cols-4
-              gap-6
+            grid
+            grid-cols-1
+            sm:grid-cols-2
+            lg:grid-cols-4
+            gap-6
             "
           >
             <For each={listings}>
               {(card) => (
                 <div
                   class="
-                    bg-white
-                    rounded-2xl
-                    overflow-hidden
-                    shadow-sm
-                    hover:shadow-md
-                    transition
+                  bg-white
+                  rounded-2xl
+                  overflow-hidden
+                  shadow-sm
+                  hover:shadow-md
+                  transition
                   "
                 >
                   <img
                     src={card.imagen}
                     alt={card.nombre}
                     class="
-                      h-72
-                      w-full
-                      object-cover
+                    h-72
+                    w-full
+                    object-cover
                     "
                   />
 
@@ -241,10 +449,10 @@ export default function Perfil() {
 
                     <p
                       class="
-                        mt-2
-                        text-xl
-                        font-bold
-                        text-[#5f7866]
+                      mt-2
+                      text-xl
+                      font-bold
+                      text-[#5f7866]
                       "
                     >
                       ${card.precio.toLocaleString()}

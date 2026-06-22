@@ -1,33 +1,51 @@
 import { For } from "solid-js";
+import RecentlyAddedCards from "~/components/RecentlyAddedCards";
+import { getLatestCards } from "~/server/cards";
+import { query, createAsync } from "@solidjs/router";
+import CardItem from "~/components/CardItem";
 
 const destacadas = [
   {
     id: "1",
-    nombre: "Charizard",
+    name: "Charizard",
+    game: "Pokemon",
+    rarity: "Legendary",
     set: "Base Set",
-    precio: 450,
-    imagen:
-      "https://images.pokemontcg.io/base1/4_hires.png",
+    price: 450,
+    imageUrl:
+    "https://images.pokemontcg.io/base1/4_hires.png",
   },
   {
     id: "2",
-    nombre: "Lugia",
+    name: "Lugia",
+    game: "Pokemon",
+    rarity: "Legendary",
     set: "Neo Genesis",
-    precio: 300,
-    imagen:
-      "https://images.pokemontcg.io/neo1/9_hires.png",
+    price: 300,
+    imageUrl:
+    "https://images.pokemontcg.io/neo1/9_hires.png",
   },
   {
     id: "3",
-    nombre: "Blastoise",
+    name: "Blastoise",
+    game: "Pokemon",
+    rarity: "Legendary",
     set: "Base Set",
-    precio: 250,
-    imagen:
-      "https://images.pokemontcg.io/base1/2_hires.png",
+    price: 250,
+    imageUrl:
+    "https://images.pokemontcg.io/base1/2_hires.png",
   },
 ];
 
+
+export const route = {
+  load: ({ params }: any) => getLatestCards()
+};
+
 export default function Home() {
+  const cards: any = createAsync(() => getLatestCards())
+  console.log(cards())
+
   return (
     <main class="min-h-screen bg-[#f4f1eb] text-[#2f2a24]">
       {/* Hero */}
@@ -78,6 +96,9 @@ export default function Home() {
         </div>
       </section>
 
+
+
+
       {/* Destacadas */}
       <section class="max-w-7xl mx-auto px-8 pb-20">
         <h2 class="text-3xl font-bold mb-8">
@@ -86,32 +107,25 @@ export default function Home() {
 
         <div class="grid md:grid-cols-3 gap-8">
           <For each={destacadas}>
-            {(card) => (
-              <div class="bg-white rounded-xl shadow overflow-hidden">
-                <img
-                  src={card.imagen}
-                  alt={card.nombre}
-                  class="h-96 w-full object-contain bg-[#faf8f5]"
-                />
-
-                <div class="p-5">
-                  <h3 class="text-xl font-semibold">
-                    {card.nombre}
-                  </h3>
-
-                  <p class="text-gray-500">
-                    {card.set}
-                  </p>
-
-                  <p class="mt-4 text-2xl font-bold">
-                    USD {card.precio}
-                  </p>
-                </div>
-              </div>
-            )}
+            {(card) => <CardItem card={card} />}
           </For>
         </div>
       </section>
+
+
+      <section class="mt-8">
+        <h2 class="text-2xl font-bold mb-4">
+          Últimas cartas agregadas
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <For each={cards()}>
+            {(card) => <CardItem card={card} />}
+          </For>
+
+        </div>
+      </section>
+
     </main>
   );
 }

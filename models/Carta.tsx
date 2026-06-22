@@ -1,16 +1,5 @@
-export interface Carta {
-  id: string;
+import { InferSelectModel, InferInsertModel } from "drizzle-orm";
+import { cards } from "~/db/schema";
 
-  nombre: string;
-
-  juego:
-    | "POKEMON"
-    | "YUGIOH"
-    | "MAGIC";
-
-  expansion: string; // En el futuro debera ser un enum
-
-  numeroColeccion: string;
-
-  imagenOficial: string;
-}
+export type Card = InferSelectModel<typeof cards>;
+export type NewCard = InferInsertModel<typeof cards>;
