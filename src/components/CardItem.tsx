@@ -25,13 +25,25 @@ function rarityStyle(rarity: string): string {
 
 export default function CardItem(props: { card: Card }) {
   const [expanded, setExpanded] = createSignal(false);
+  const [visible, setVisible] = createSignal(false);
+
+  function openModal() {
+    setExpanded(true);
+    requestAnimationFrame(() => setVisible(true));
+  }
+
+  function closeModal() {
+    setVisible(false);
+    setTimeout(() => setExpanded(false), 250);
+  }
 
   return (
     <>
       {/* Carta base */}
       <div
-        class="w-64 bg-white rounded-xl shadow overflow-hidden mx-auto cursor-pointer hover:scale-[1.02] hover:shadow-md transition-transform duration-200"
-        onClick={() => setExpanded(true)}
+        class="w-64 bg-white rounded-xl shadow overflow-hidden mx-auto cursor-pointer
+               hover:scale-[1.02] hover:shadow-md transition-transform duration-200"
+        onClick={openModal}
       >
         <div class="aspect-[2.5/3.5] bg-[#faf8f5]">
           <img
@@ -49,69 +61,97 @@ export default function CardItem(props: { card: Card }) {
         </div>
       </div>
 
-      {/* Modal fuera del DOM del grid */}
       <Show when={expanded()}>
         <Portal mount={document.body}>
+          {/* Overlay */}
           <div
-            class="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style="background:rgba(0,0,0,0.5)"
-            onClick={() => setExpanded(false)}
+            onClick={closeModal}
+            style={`
+              position: fixed; inset: 0; z-index: 9999;
+              display: flex; align-items: center; justify-content: center; padding: 1rem;
+              background: ${visible() ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,0)"};
+              transition: background 0.25s ease;
+            `}
           >
+            {/* Modal */}
             <div
-              class="bg-white rounded-2xl shadow-2xl flex flex-col sm:flex-row max-w-lg w-full overflow-hidden"
               onClick={(e) => e.stopPropagation()}
+              style={`
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 24px 64px rgba(0,0,0,0.18);
+                display: flex;
+                flex-direction: row;
+                max-width: 520px;
+                width: 100%;
+                overflow: hidden;
+                transform: ${visible() ? "translateY(0) scale(1)" : "translateY(20px) scale(0.97)"};
+                opacity: ${visible() ? "1" : "0"};
+                transition: transform 0.25s ease, opacity 0.25s ease;
+              `}
             >
-              <div class="sm:w-56 shrink-0 flex items-center justify-center p-4" style="background:#faf8f5">
+              {/* Imagen */}
+              <div style="width:200px;flex-shrink:0;background:#faf8f5;
+                          display:flex;align-items:center;justify-content:center;padding:1rem;">
                 <img
                   src={props.card.image_url}
                   alt={props.card.name}
-                  class="w-full object-contain"
-                  style="max-height:260px"
+                  style="width:100%;object-fit:contain;max-height:260px;"
                 />
               </div>
 
-              <div class="flex flex-col p-6 gap-3 flex-1">
-                <div class="flex items-start justify-between gap-2">
+              {/* Info */}
+              <div style="display:flex;flex-direction:column;padding:1.5rem;gap:0.75rem;flex:1;">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
                   <div>
-                    <h2 class="text-2xl font-bold leading-tight">{props.card.name}</h2>
-                    <p class="text-sm text-gray-500 mt-1">{props.card.game}</p>
+                    <h2 style="font-size:22px;font-weight:700;line-height:1.2;">{props.card.name}</h2>
+                    <p style="font-size:13px;color:#9ca3af;margin-top:4px;">{props.card.game}</p>
                   </div>
                   <button
-                    class="text-gray-400 hover:text-gray-600 text-lg leading-none"
-                    onClick={() => setExpanded(false)}
-                    aria-label="Cerrar"
+                    onClick={closeModal}
+                    style="color:#9ca3af;font-size:18px;cursor:pointer;background:none;border:none;line-height:1;padding:2px;"
                   >
                     ✕
                   </button>
                 </div>
 
                 <span
-                  class="self-start text-xs font-medium px-3 py-1 rounded-full"
-                  style={rarityStyle(props.card.rarity)}
+                  style={`${rarityStyle(props.card.rarity)};
+                          font-size:11px;font-weight:500;padding:3px 10px;
+                          border-radius:999px;align-self:flex-start;`}
                 >
                   {props.card.rarity}
                 </span>
 
-                <dl class="grid grid-cols-2 gap-x-4 gap-y-3 text-sm mt-1">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;
+                            border-top:1px solid #f3f4f6;padding-top:0.75rem;">
                   <div>
-                    <dt class="text-gray-400 text-xs uppercase tracking-wide">N° de carta</dt>
-                    <dd class="font-medium mt-0.5">{props.card.card_number}</dd>
+                    <p style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;">
+                      N° de carta
+                    </p>
+                    <p style="font-weight:600;font-size:13px;">{props.card.card_number}</p>
                   </div>
                   <div>
-                    <dt class="text-gray-400 text-xs uppercase tracking-wide">Condición</dt>
-                    <dd class="font-medium mt-0.5">{props.card.condition}</dd>
+                    <p style="font-size:10px;color:#9ca3af;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:3px;">
+                      Condición
+                    </p>
+                    <p style="font-weight:600;font-size:13px;">{props.card.condition}</p>
                   </div>
-                </dl>
+                </div>
 
                 <Show when={props.card.description}>
-                  <p class="text-sm text-gray-600 leading-relaxed border-t pt-3">
+                  <p style="font-size:13px;color:#5f564c;line-height:1.7;border-top:1px solid #f3f4f6;padding-top:0.75rem;">
                     {props.card.description}
                   </p>
                 </Show>
 
-                <div class="flex items-center justify-between mt-auto pt-3 border-t">
-                  <span class="text-2xl font-bold">USD {props.card.price}</span>
-                  <button class="bg-black text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-gray-800">
+                <div style="display:flex;align-items:center;justify-content:space-between;
+                            border-top:1px solid #f3f4f6;padding-top:0.75rem;margin-top:auto;">
+                  <span style="font-size:22px;font-weight:700;">USD {props.card.price}</span>
+                  <button
+                    style="background:#2f2a24;color:white;padding:9px 18px;border-radius:10px;
+                           font-size:13px;font-weight:500;cursor:pointer;border:none;"
+                  >
                     Agregar al carrito
                   </button>
                 </div>
