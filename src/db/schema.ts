@@ -23,9 +23,5 @@ export const cards = sqliteTable("cards", {
 
   description: text("description"),
 
-  price: integer("price").notNull(),
-
-  createdAt: integer("created_at", {
-    mode: "timestamp",
-  }).notNull(),
+  price: integer("price"),
 });
